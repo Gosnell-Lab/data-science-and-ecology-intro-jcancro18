@@ -1,17 +1,16 @@
 ---
 title: "REPORT/PROJECT TEMPLATE"
-author: "jsg"
+author: "Julia Cancro"
 date: "Last compiled on `r format(Sys.time(), '%d %B, %Y %H:%M')`"
 output:
   html_document:
     toc: true
     toc_float: true
     keep_md: true
+    self_contained: true
+editor_options: 
+  chunk_output_type: console
 ---
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 
 THIS TEMPLATE IS DESIGNED TO HELP GUIDE YOUR PROJECT DEVELOPMENT. YOU CAN CHANGE
 OR ADD ANY SECTIONS, BUT I NEED A BRIEF BACKGROUND (WHAT IS YOUR QUESTION, WHY,
@@ -24,15 +23,52 @@ YOUR FINDINGS.
 What is the main goal of your project? How did you collect the data? You can copy
 this to/from a paper.
 
+- The goal of this experiment is to quantify the impact of microzooplankton grazing on phytoplankton assemblages within NYC embayments.
+
 # Read in (Import) your data
 
 Useful functions here may be **read.csv**.
 
-# Check your data
+```{r}
+JBWR1 <- read.csv("~/Downloads/JBWR1.csv", stringsAsFactors = T)
+#need to use stringsAsFactors to make characters read in as factors
+```
 
+# Check your data
+```{r}
+head("~/Downloads/JBWR1.csv")
+```
 Useful functions here may be **str**, **summary**, or **head**.
 
 # Exploratory data analysis
+
+Install and call the package
+
+```{r}
+library(ggplot2)
+```
+
+To make a plot, set a base layer using the **ggplot** fuxn
+Have to add geom below because otherwise the fxn is not defined
+
+```{r}
+JBWR1 <- ggplot(JBWR1, aes(x=Dilution_Factor, y = Net_Growth_Rate))
+```
+
+Here we are naming a dataframe to use (first argument), then we note which 
+columns to use for the x and y axis
+
+When we do this, we get a blank graph, but we have to name the ggplot to see it
+
+```{r}
+JBWR1
+```
+
+We can create a scatter plot using the geom_point command.
+```{r}
+JBWR1_scatter <- ggplot(JBWR1, aes(x=Dilution_Factor, y = Net_Growth_Rate)) +
+  geompoint()
+```
 
 Useful functions here may come from the **ggplot2** package.
 
