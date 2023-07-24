@@ -10,6 +10,9 @@ output:
     self_contained: true
 editor_options: 
   chunk_output_type: console
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 ---
 
 THIS TEMPLATE IS DESIGNED TO HELP GUIDE YOUR PROJECT DEVELOPMENT. YOU CAN CHANGE
@@ -52,7 +55,7 @@ To make a plot, set a base layer using the **ggplot** fuxn
 Have to add geom below because otherwise the fxn is not defined
 
 ```{r}
-JBWR1 <- ggplot(JBWR1, aes(x=Dilution_Factor, y = Net_Growth_Rate))
+P.Growth_Dilution_Relationship <- ggplot(JBWR1, aes(x=Dilution_Factor, y = Net_Growth_Rate))
 ```
 
 Here we are naming a dataframe to use (first argument), then we note which 
@@ -61,13 +64,22 @@ columns to use for the x and y axis
 When we do this, we get a blank graph, but we have to name the ggplot to see it
 
 ```{r}
-JBWR1
+P.Growth_Dilution_Relationship
 ```
 
 We can create a scatter plot using the geom_point command.
 ```{r}
-JBWR1_scatter <- ggplot(JBWR1, aes(x=Dilution_Factor, y = Net_Growth_Rate)) +
-  geompoint()
+P.Growth_Dilution_Relationship_scatter <- ggplot(JBWR1, aes(x=Dilution_Factor, y = Net_Growth_Rate)) + 
+  geom_point()
+```
+
+```{r}
+P.Growth_Dilution_Relationship_scatter
+```
+
+```{r}
+ggplot(JBWR1, aes(x=Dilution_Factor, y = Net_Growth_Rate)) +
+  geom_point()
 ```
 
 Useful functions here may come from the **ggplot2** package.

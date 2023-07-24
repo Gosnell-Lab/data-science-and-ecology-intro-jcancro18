@@ -248,7 +248,7 @@ file
 
 #which is then read by the read.csv function
 
-my_dataset <- read.csv(file, stringsAsFactors = T)
+my_dataset <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vTlRfzJlfMg5HRkksPKas9MdQRv15A4d_lRg_KrY1otvmGtBM7YDgTfJ7tWdaeDZL0jToHgsDMJolUD/pub?gid=0&single=true&output=csv", stringsAsFactors = T)
 
 # Since ~2020 you need to as StringsAsFactors = T to read in characters as factors
 # (what we typically want)
