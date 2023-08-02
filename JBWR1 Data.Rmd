@@ -1,5 +1,5 @@
 ---
-title: "REPORT/PROJECT TEMPLATE"
+title: "Ciliate Grazing Project"
 author: "Julia Cancro"
 date: "Last compiled on `r format(Sys.time(), '%d %B, %Y %H:%M')`"
 output:
@@ -10,9 +10,7 @@ output:
     self_contained: true
 editor_options: 
   chunk_output_type: console
-```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-```
 ---
 
 THIS TEMPLATE IS DESIGNED TO HELP GUIDE YOUR PROJECT DEVELOPMENT. YOU CAN CHANGE
@@ -28,6 +26,7 @@ this to/from a paper.
 
 - The goal of this experiment is to quantify the impact of microzooplankton grazing on phytoplankton assemblages within NYC embayments.
 
+### PART 1 (20-153 um)
 # Read in (Import) your data
 
 Useful functions here may be **read.csv**.
@@ -38,14 +37,15 @@ JBWR1 <- read.csv("~/Downloads/JBWR1.csv", stringsAsFactors = T)
 ```
 
 # Check your data
+# Useful functions here may be **str**, **summary**, or **head**.
+
 ```{r}
-head("~/Downloads/JBWR1.csv")
+head("~/Downloads/JBWR1.csv", stringsAsFactors = T)
 ```
-Useful functions here may be **str**, **summary**, or **head**.
+
 
 # Exploratory data analysis
-
-Install and call the package
+# Install and call the package
 
 ```{r}
 library(ggplot2)
@@ -55,7 +55,11 @@ To make a plot, set a base layer using the **ggplot** fuxn
 Have to add geom below because otherwise the fxn is not defined
 
 ```{r}
-P.Growth_Dilution_Relationship <- ggplot(JBWR1, aes(x=Dilution_Factor, y = Net_Growth_Rate))
+P.Growth_Dilution_Relationship <- ggplot(JBWR1, aes(x=Dilution_Factor, y = Net_Growth_Rate)) +
+  geom_point()+
+  geom_smooth(method = "lm", se = FALSE)+
+  geom_errorbar(aes(ymin=Net_Growth_Rate-Std.Dev, ymax=Net_Growth_Rate+Std.Dev
+), width=.01)
 ```
 
 Here we are naming a dataframe to use (first argument), then we note which 
@@ -64,23 +68,102 @@ columns to use for the x and y axis
 When we do this, we get a blank graph, but we have to name the ggplot to see it
 
 ```{r}
-P.Growth_Dilution_Relationship
+P.Growth_Dilution_Relationship + ggtitle("Phytoplankton Growth Rate") +
+  xlab("Dilution Factor") + ylab(bquote('Net Growth Rate '(µ^-1)))
 ```
 
-We can create a scatter plot using the geom_point command.
+
+
+
+### PART 2 (5-20 um)
+
 ```{r}
-P.Growth_Dilution_Relationship_scatter <- ggplot(JBWR1, aes(x=Dilution_Factor, y = Net_Growth_Rate)) + 
-  geom_point()
+JBWR2 <- read.csv("~/Downloads/JBWR2.csv", stringsAsFactors = T)
+#need to use stringsAsFactors to make characters read in as factors
+```
+
+# Check your data
+# Useful functions here may be **str**, **summary**, or **head**.
+
+```{r}
+head("~/Downloads/JBWR2.csv", stringsAsFactors = T)
+```
+
+
+# Exploratory data analysis
+# Install and call the package
+
+```{r}
+library(ggplot2)
+```
+
+To make a plot, set a base layer using the **ggplot** fuxn
+Have to add geom below because otherwise the fxn is not defined
+
+```{r}
+P.Growth_Dilution_Relationship <- ggplot(JBWR2, aes(x=Dilution_Factor, y = Net_Growth_Rate)) +
+  geom_point()+
+  geom_smooth(method = "lm", se = FALSE)+
+  geom_errorbar(aes(ymin=Net_Growth_Rate-Std.Dev, ymax=Net_Growth_Rate+Std.Dev
+), width=.01)
 ```
 
 ```{r}
-P.Growth_Dilution_Relationship_scatter
+P.Growth_Dilution_Relationship + ggtitle("Phytoplankton Growth Rate") +
+  xlab("Dilution Factor") + ylab(bquote('Net Growth Rate '(µ^-1)))
 ```
 
+
+
+
+### PART 3 (<5 um)
 ```{r}
-ggplot(JBWR1, aes(x=Dilution_Factor, y = Net_Growth_Rate)) +
-  geom_point()
+JBWR3 <- read.csv("~/Downloads/JBWR3.csv", stringsAsFactors = T)
+#need to use stringsAsFactors to make characters read in as factors
 ```
+
+# Check your data
+# Useful functions here may be **str**, **summary**, or **head**.
+
+```{r}
+head("~/Downloads/JBWR3.csv", stringsAsFactors = T)
+```
+
+
+# Exploratory data analysis
+# Install and call the package
+
+```{r}
+library(ggplot2)
+```
+
+To make a plot, set a base layer using the **ggplot** fuxn
+Have to add geom below because otherwise the fxn is not defined
+
+```{r}
+P.Growth_Dilution_Relationship <- ggplot(JBWR3, aes(x=Dilution_Factor, y = Net_Growth_Rate)) +
+  stat_poly_line() +
+  stat_poly_eq() +
+  geom_point()+
+  geom_smooth(method = "lm", se = FALSE)+
+  geom_errorbar(aes(ymin=Net_Growth_Rate-Std.Dev, ymax=Net_Growth_Rate+Std.Dev
+), width=.01)
+```
+
+Here we are naming a dataframe to use (first argument), then we note which 
+columns to use for the x and y axis
+
+When we do this, we get a blank graph, but we have to name the ggplot to see it
+
+```{r}
+P.Growth_Dilution_Relationship + ggtitle("Phytoplankton Growth Rate") +
+  xlab("Dilution Factor") + ylab(bquote('Net Growth Rate ' (µ^-1)))
+```
+
+
+
+
+
 
 Useful functions here may come from the **ggplot2** package.
 
